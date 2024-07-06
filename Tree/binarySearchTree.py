@@ -2,7 +2,7 @@ class binarySearchTree():
     def __init__(self, key) -> None:
         self.key = key
         self.lchild = None
-        self.rchlid = None
+        self.rchild = None
 
     def insert(self, data):
         if self.key is None:
@@ -19,10 +19,10 @@ class binarySearchTree():
                 self.lchild = binarySearchTree(data)
         
         else:
-            if self.rchlid:
-                self.rchlid.insert(data)
+            if self.rchild:
+                self.rchild.insert(data)
             else:
-                self.rchlid = binarySearchTree(data)
+                self.rchild = binarySearchTree(data)
 
 #     4
 #   /   \
@@ -34,21 +34,21 @@ class binarySearchTree():
         print(self.key, end=" ")
         if self.lchild:
             self.lchild.preOrder()
-        if self.rchlid:
-            self.rchlid.preOrder()
+        if self.rchild:
+            self.rchild.preOrder()
 
     def inOrder(self):
         if self.lchild:
             self.lchild.inOrder()
         print(self.key, end=" ")
-        if self.rchlid:
-            self.rchlid.inOrder()
+        if self.rchild:
+            self.rchild.inOrder()
         
     def postOrder(self):
         if self.lchild:
             self.lchild.postOrder()
-        if self.rchlid:
-            self.rchlid.postOrder()
+        if self.rchild:
+            self.rchild.postOrder()
         print(self.key, end=" ")
 
     def search_node(self, item):
@@ -62,10 +62,49 @@ class binarySearchTree():
             else:
                 print(f"'{item}' is not present in tree.")
         else:
-            if self.rchlid:
-                self.rchlid.search_node(item)
+            if self.rchild:
+                self.rchild.search_node(item)
             else:
                 print(f"'{item}' is not present in tree.")
+
+    def delete_node(self, item): 
+        if self.key is None: 
+            print("Tree is Empty!") 
+            return
+        
+        if self.key > item: 
+            if self.lchild: 
+                self.lchild = self.lchild.delete_node(item) 
+            else: 
+                print("Given Node is Not present in the tree!")
+                
+        elif self.key < item: 
+            if self.rchild:
+                self.rchild = self.rchild.delete_node(item) 
+            else:
+                print(f"Given Node is Not present in the tree!")
+
+        # self.key == item       
+        else: 
+
+            """Given Node hase one child"""    
+            if self.lchild is None:  
+                temp = self.rchild 
+                self = None 
+                return temp 
+            
+            if self.rchild is None:
+                temp = self.lchild
+                self = None 
+                return temp
+            
+            """Given Node two childs"""
+            node = self.rchild 
+            while node.lchild: 
+                node = node.lchild
+            self.key = node.key  
+            self.rchild = self.rchild.delete_node(node.key) 
+        return self 
 
 #-------------------
 root = binarySearchTree(4)
@@ -82,6 +121,8 @@ root.inOrder()
 print()
 root.postOrder()
 print()
-root.search_node(7)
+root.search_node(3)
+
+root.delete_node(6)
 
 root.inOrder()
