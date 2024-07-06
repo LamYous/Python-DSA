@@ -105,6 +105,18 @@ class binarySearchTree():
             self.key = node.key  
             self.rchild = self.rchild.delete_node(node.key) 
         return self 
+    
+    def min_node(self):
+        current = self
+        while current.lchild:
+            current = current.lchild
+        print(f"Node with smallest key is: {current.key}")
+
+    def max_node(self):
+        current = self
+        while current.rchild:
+            current = current.rchild
+        print(f"Node with maximum key is: {current.key}")
 
 #-------------------
 root = binarySearchTree(4)
@@ -126,3 +138,7 @@ root.search_node(3)
 root.delete_node(6)
 
 root.inOrder()
+
+print()
+root.min_node()
+root.max_node()
