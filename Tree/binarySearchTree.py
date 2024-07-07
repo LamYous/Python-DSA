@@ -67,20 +67,20 @@ class binarySearchTree():
             else:
                 print(f"'{item}' is not present in tree.")
 
-    def delete_node(self, item): 
+    def delete_node(self, item, curr): 
         if self.key is None: 
             print("Tree is Empty!") 
             return
         
         if self.key > item: 
             if self.lchild: 
-                self.lchild = self.lchild.delete_node(item) 
+                self.lchild = self.lchild.delete_node(item, curr) 
             else: 
                 print("Given Node is Not present in the tree!")
                 
         elif self.key < item: 
             if self.rchild:
-                self.rchild = self.rchild.delete_node(item) 
+                self.rchild = self.rchild.delete_node(item, curr) 
             else:
                 print(f"Given Node is Not present in the tree!")
 
@@ -90,11 +90,21 @@ class binarySearchTree():
             """Given Node hase one child"""    
             if self.lchild is None:  
                 temp = self.rchild 
+                if self.key == curr:
+                    self.key = temp.key
+                    self.lchild = temp.lchild
+                    self.rchild = temp.rchild
+                    return
                 self = None 
                 return temp 
             
             if self.rchild is None:
                 temp = self.lchild
+                if self.key == curr:
+                    self.key = temp.key
+                    self.lchild = temp.lchild
+                    self.rchild = temp.rchild
+                    return
                 self = None 
                 return temp
             
@@ -103,7 +113,7 @@ class binarySearchTree():
             while node.lchild: 
                 node = node.lchild
             self.key = node.key  
-            self.rchild = self.rchild.delete_node(node.key) 
+            self.rchild = self.rchild.delete_node(node.key, curr) 
         return self 
     
     def min_node(self):
@@ -117,6 +127,11 @@ class binarySearchTree():
         while current.rchild:
             current = current.rchild
         print(f"Node with maximum key is: {current.key}")
+
+def count(node):
+    if node is None:
+        return 0
+    return 1 + count(node.lchild) + count(node.rchild)
 
 #-------------------
 root = binarySearchTree(4)
@@ -135,9 +150,13 @@ root.postOrder()
 print()
 root.search_node(3)
 
-root.delete_node(6)
+#delete item:
+if count(root) > 1:
+    root.delete_node(6, root.key)
+    root.inOrder()
+else:
+    print("can't perform deletion operation!")
 
-root.inOrder()
 
 print()
 root.min_node()
