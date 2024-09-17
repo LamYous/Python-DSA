@@ -57,11 +57,17 @@ class LinkedList:
         prev = self.head
         a = self.head.next
 
-        for i in range(1 ,posetion-1):
-            a = a.next
-            prev = prev.next
-        prev.next = a.next
-        a.next = None
+        if posetion != 1:
+            for i in range(1 ,posetion-1):
+                a = a.next
+                prev = prev.next
+            prev.next = a.next
+            a.next = None
+        #if posetion == 1 (first Node)
+        else:
+            a = self.head
+            self.head = a.next
+            a.next = None
 
     def traversal(self):
         if self.head is None:
