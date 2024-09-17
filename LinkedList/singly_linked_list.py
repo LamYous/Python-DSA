@@ -39,12 +39,18 @@ class LinkedList:
         a.next = None
 
     def delete_at_end(self):
-        prev = self.head
-        a = self.head.next
-        while a.next:
-            a = a.next
-            prev = prev.next
-        prev.next = None
+        #condition1: the linked list has more than One Node
+        if self.head.next:
+            prev = self.head
+            a = self.head.next
+            while a.next:
+                a = a.next
+                prev = prev.next
+            prev.next = None
+            
+        #condition2: the linked list has one Node(self.head == last Node)
+        else:
+            self.head = None
     
 
     def delete_at_particular_node(self,posetion):
