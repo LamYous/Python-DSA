@@ -37,6 +37,7 @@ class LinkedList:
         a = self.head
         self.head = a.next
         a.next = None
+        print("Delete method is done!")
 
     def delete_at_end(self):
         #condition1: the linked list has more than One Node
@@ -47,10 +48,11 @@ class LinkedList:
                 a = a.next
                 prev = prev.next
             prev.next = None
-            
+            print("Delete method is done!")
         #condition2: the linked list has one Node(self.head == last Node)
         else:
             self.head = None
+            print("Delete method is done!")
     
 
     def delete_at_particular_node(self,posetion):
@@ -63,11 +65,14 @@ class LinkedList:
                 prev = prev.next
             prev.next = a.next
             a.next = None
+            print("Delete method is done!")
+
         #if posetion == 1 (first Node)
         else:
             a = self.head
             self.head = a.next
             a.next = None
+            print("Delete method is done!")
 
     def traversal(self):
         if self.head is None:
@@ -96,11 +101,11 @@ sll.traversal()
 sll.insert_at_specified_node(posetion=2,data=2)
 sll.traversal()
 
-# # sll.delete_at_bg()
-# # sll.traversal()
+sll.delete_at_bg()
+sll.traversal()
 
-# # sll.delete_at_end()
-# # sll.traversal()
+sll.delete_at_end()
+sll.traversal()
 
 sll.delete_at_particular_node(posetion=1)
 sll.traversal()
